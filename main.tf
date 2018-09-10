@@ -85,13 +85,3 @@ resource "null_resource" "finding_reported" {
     topic_arn     = "${aws_sns_topic.topic.arn}"
   }
 }
-
-resource "null_resource" "other" {
-  provisioner "local-exec" {
-    command = "aws inspector subscribe-to-event --event OTHER --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn}"
-  }
-  triggers {
-    template_arn  = "${aws_inspector_assessment_template.template.arn}"
-    topic_arn     = "${aws_sns_topic.topic.arn}"
-  }
-}

@@ -1,5 +1,5 @@
 locals {
-  inspector_account = "{local.regional_inspector_accounts[data.aws_region.current.name]}"
+  inspector_account = "${local.regional_inspector_accounts[data.aws_region.current.name]}"
   os_rules_package_arns = {
     amazon_linux                = [
       "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"common_vulnerabilities_and_exposures")}",
@@ -82,7 +82,7 @@ locals {
     eu-west-1       = "arn:aws:iam::357557129151:root"
     us-east-1       = "arn:aws:iam::316112463485:root"
     us-east-2       = "arn:aws:iam::646659390643:root"
-    us-gov-west-1   = "arn:aws-us-gov:iam:: 850862329162:root"
+    us-gov-west-1   = "arn:aws-us-gov:iam::850862329162:root"
     us-west-1       = "arn:aws:iam::166987590008:root"
     us-west-2       = "arn:aws:iam::758058086616:root"
   }
