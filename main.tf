@@ -47,6 +47,9 @@ resource "aws_sns_topic_policy" "topic" {
 }
 
 resource "null_resource" "assessment_run_started" {
+  depends_on = [
+    "aws_sns_topic_policy.topic"
+  ]
   provisioner "local-exec" {
     command = "aws inspector subscribe-to-event --event ASSESSMENT_RUN_STARTED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn}"
   }
@@ -57,6 +60,9 @@ resource "null_resource" "assessment_run_started" {
 }
 
 resource "null_resource" "assessment_run_completed" {
+  depends_on = [
+    "aws_sns_topic_policy.topic"
+  ]
   provisioner "local-exec" {
     command = "aws inspector subscribe-to-event --event ASSESSMENT_RUN_COMPLETED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn}"
   }
@@ -67,6 +73,9 @@ resource "null_resource" "assessment_run_completed" {
 }
 
 resource "null_resource" "assessment_run_state_changed" {
+  depends_on = [
+    "aws_sns_topic_policy.topic"
+  ]
   provisioner "local-exec" {
     command = "aws inspector subscribe-to-event --event ASSESSMENT_RUN_STATE_CHANGED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn}"
   }
@@ -77,6 +86,9 @@ resource "null_resource" "assessment_run_state_changed" {
 }
 
 resource "null_resource" "finding_reported" {
+  depends_on = [
+    "aws_sns_topic_policy.topic"
+  ]
   provisioner "local-exec" {
     command = "aws inspector subscribe-to-event --event FINDING_REPORTED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn}"
   }
