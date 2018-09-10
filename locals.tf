@@ -1,5 +1,92 @@
 locals {
-  rules_package_arns = {
+  inspector_account = "{local.regional_inspector_accounts[data.aws_region.current.name]}"
+  os_rules_package_arns = {
+    amazon_linux                = [
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"common_vulnerabilities_and_exposures")}",
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"security_best_practices")}"
+    ]
+    amazon_linux_2_lts_2017_12  = [
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"common_vulnerabilities_and_exposures")}",
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"security_best_practices")}",
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"runtime_behavior_analysis")}"
+    ]
+    amazon_linux_2012_2014      = [
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"common_vulnerabilities_and_exposures")}",
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"security_best_practices")}"
+    ]
+    amazon_linux_2015_2018      = [
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"common_vulnerabilities_and_exposures")}",
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"cis_operating_system_security_configuration_benchmarks")}",
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"security_best_practices")}",
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"runtime_behavior_analysis")}"
+    ]
+    centos                      = [
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"common_vulnerabilities_and_exposures")}",
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"cis_operating_system_security_configuration_benchmarks")}",
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"security_best_practices")}",
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"runtime_behavior_analysis")}"
+    ]
+    generic                     = [
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"common_vulnerabilities_and_exposures")}"
+    ]
+    linux                       = [
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"common_vulnerabilities_and_exposures")}",
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"security_best_practices")}"
+    ]
+    debian                      = [
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"common_vulnerabilities_and_exposures")}",
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"security_best_practices")}"
+    ]
+    rhel                        = [
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"common_vulnerabilities_and_exposures")}",
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"cis_operating_system_security_configuration_benchmarks")}",
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"security_best_practices")}",
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"runtime_behavior_analysis")}"
+    ]
+    ubuntu                      = [
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"common_vulnerabilities_and_exposures")}",
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"security_best_practices")}",
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"runtime_behavior_analysis")}"
+    ]
+    ubuntu_14_16_lts            = [
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"common_vulnerabilities_and_exposures")}",
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"cis_operating_system_security_configuration_benchmarks")}",
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"security_best_practices")}",
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"runtime_behavior_analysis")}"
+    ]
+    ubuntu_18_04_lts            = [
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"common_vulnerabilities_and_exposures")}",
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"security_best_practices")}",
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"runtime_behavior_analysis")}"
+    ]
+    windows                     = [
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"common_vulnerabilities_and_exposures")}",
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"runtime_behavior_analysis")}"
+    ]
+    windows_server_2008_2012    = [
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"common_vulnerabilities_and_exposures")}",
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"cis_operating_system_security_configuration_benchmarks")}",
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"runtime_behavior_analysis")}"
+    ]
+    windows_server_2016_base    = [
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"common_vulnerabilities_and_exposures")}",
+      "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"runtime_behavior_analysis")}"
+    ]
+  }
+  regional_inspector_accounts = {
+    ap-northeast-1  = "arn:aws:iam::406045910587:root"
+    ap-northeast-2  = "arn:aws:iam::526946625049:root"
+    ap-south-1      = "arn:aws:iam::162588757376:root"
+    ap-southeast-2  = "arn:aws:iam::454640832652:root"
+    eu-central-1    = "arn:aws:iam::537503971621:root"
+    eu-west-1       = "arn:aws:iam::357557129151:root"
+    us-east-1       = "arn:aws:iam::316112463485:root"
+    us-east-2       = "arn:aws:iam::646659390643:root"
+    us-gov-west-1   = "arn:aws-us-gov:iam:: 850862329162:root"
+    us-west-1       = "arn:aws:iam::166987590008:root"
+    us-west-2       = "arn:aws:iam::758058086616:root"
+  }
+  regional_rules_package_arns = {
     ap-northeast-1 = {
       common_vulnerabilities_and_exposures                    = "arn:aws:inspector:ap-northeast-1:406045910587:rulespackage/0-gHP9oWNT"
       cis_operating_system_security_configuration_benchmarks  = "arn:aws:inspector:ap-northeast-1:406045910587:rulespackage/0-7WNjqgGu"
@@ -36,7 +123,7 @@ locals {
       security_best_practices                                 = "arn:aws:inspector:eu-west-1:357557129151:rulespackage/0-SnojL3Z6"
       runtime_behavior_analysis                               = "arn:aws:inspector:eu-west-1:357557129151:rulespackage/0-lLmwe1zd"
     }
-    us_east-1 = {
+    us-east-1 = {
       common_vulnerabilities_and_exposures                    = "arn:aws:inspector:us-east-1:316112463485:rulespackage/0-gEjTy7T7"
       cis_operating_system_security_configuration_benchmarks  = "arn:aws:inspector:us-east-1:316112463485:rulespackage/0-rExsr2X8"
       security_best_practices                                 = "arn:aws:inspector:us-east-1:316112463485:rulespackage/0-R01qwB5Q"
@@ -68,77 +155,7 @@ locals {
     }
 
   }
-  os_mapping = {
-    amazon_linux                = [
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"common_vulnerabilities_and_exposures")}",
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"security_best_practices")}"
-    ]
-    amazon_linux_2_lts_2017_12  = [
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"common_vulnerabilities_and_exposures")}",
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"security_best_practices")}",
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"runtime_behavior_analysis")}"
-    ]
-    amazon_linux_2012_2014      = [
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"common_vulnerabilities_and_exposures")}",
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"security_best_practices")}"
-    ]
-    amazon_linux_2015_2018      = [
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"common_vulnerabilities_and_exposures")}",
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"cis_operating_system_security_configuration_benchmarks")}",
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"security_best_practices")}",
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"runtime_behavior_analysis")}"
-    ]
-    centos                      = [
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"common_vulnerabilities_and_exposures")}",
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"cis_operating_system_security_configuration_benchmarks")}",
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"security_best_practices")}",
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"runtime_behavior_analysis")}"
-    ]
-    generic                     = [
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"common_vulnerabilities_and_exposures")}"
-    ]
-    linux                       = [
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"common_vulnerabilities_and_exposures")}",
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"security_best_practices")}"
-    ]
-    debian                      = [
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"common_vulnerabilities_and_exposures")}",
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"security_best_practices")}"
-    ]
-    rhel                        = [
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"common_vulnerabilities_and_exposures")}",
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"cis_operating_system_security_configuration_benchmarks")}",
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"security_best_practices")}",
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"runtime_behavior_analysis")}"
-    ]
-    ubuntu                      = [
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"common_vulnerabilities_and_exposures")}",
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"security_best_practices")}",
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"runtime_behavior_analysis")}"
-    ]
-    ubuntu_14_16_lts            = [
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"common_vulnerabilities_and_exposures")}",
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"cis_operating_system_security_configuration_benchmarks")}",
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"security_best_practices")}",
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"runtime_behavior_analysis")}"
-    ]
-    ubuntu_18_04_lts            = [
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"common_vulnerabilities_and_exposures")}",
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"security_best_practices")}",
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"runtime_behavior_analysis")}"
-    ]
-    windows                     = [
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"common_vulnerabilities_and_exposures")}",
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"runtime_behavior_analysis")}"
-    ]
-    windows_server_2008_2012    = [
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"common_vulnerabilities_and_exposures")}",
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"cis_operating_system_security_configuration_benchmarks")}",
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"runtime_behavior_analysis")}"
-    ]
-    windows_server_2016_base    = [
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"common_vulnerabilities_and_exposures")}",
-      "${lookup(lookup(local.rules_package_arns, data.aws_region.current.name),"runtime_behavior_analysis")}"
-    ]
-  }
+  rules_package_arns = [
+    "${local.os_rules_package_arns[var.os_name]}"
+  ]
 }

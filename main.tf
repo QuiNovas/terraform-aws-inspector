@@ -13,7 +13,85 @@ resource "aws_inspector_assessment_template" "template" {
   duration            = "${var.duration}"
   name                = "${var.name}"
   rules_package_arns  = [
-    "${lookup(local.os_mapping, var.os_name)}"
+    "${local.rules_package_arns}"
   ]
   target_arn          = "${aws_inspector_assessment_target.target.arn}"
+}
+
+resource "aws_sns_topic" "topic" {
+  display_name = "${aws_inspector_assessment_template.template.name}"
+  name = "${var.name}-inspector"
+}
+
+data "aws_iam_policy_document" "topic" {
+  statement {
+    actions   = [
+      "sns:Publish"
+    ]
+    principals {
+      identifiers = [
+        "${local.inspector_account}"
+      ]
+      type = "AWS"
+    }
+    resources = [
+      "${aws_sns_topic.topic.arn}"
+    ]
+    sid       = "AllowInspectorToPublish"
+  }
+}
+
+resource "aws_sns_topic_policy" "topic" {
+  arn     = "${aws_sns_topic.topic.arn}"
+  policy  = "${data.aws_iam_policy_document.topic.json}"
+}
+
+resource "null_resource" "assessment_run_started" {
+  provisioner "local-exec" {
+    command = "aws inspector subscribe-to-event --event ASSESSMENT_RUN_STARTED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn}"
+  }
+  triggers {
+    template_arn  = "${aws_inspector_assessment_template.template.arn}"
+    topic_arn     = "${aws_sns_topic.topic.arn}"
+  }
+}
+
+resource "null_resource" "assessment_run_completed" {
+  provisioner "local-exec" {
+    command = "aws inspector subscribe-to-event --event ASSESSMENT_RUN_COMPLETED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn}"
+  }
+  triggers {
+    template_arn  = "${aws_inspector_assessment_template.template.arn}"
+    topic_arn     = "${aws_sns_topic.topic.arn}"
+  }
+}
+
+resource "null_resource" "assessment_run_state_changed" {
+  provisioner "local-exec" {
+    command = "aws inspector subscribe-to-event --event ASSESSMENT_RUN_STATE_CHANGED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn}"
+  }
+  triggers {
+    template_arn  = "${aws_inspector_assessment_template.template.arn}"
+    topic_arn     = "${aws_sns_topic.topic.arn}"
+  }
+}
+
+resource "null_resource" "finding_reported" {
+  provisioner "local-exec" {
+    command = "aws inspector subscribe-to-event --event FINDING_REPORTED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn}"
+  }
+  triggers {
+    template_arn  = "${aws_inspector_assessment_template.template.arn}"
+    topic_arn     = "${aws_sns_topic.topic.arn}"
+  }
+}
+
+resource "null_resource" "other" {
+  provisioner "local-exec" {
+    command = "aws inspector subscribe-to-event --event OTHER --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn}"
+  }
+  triggers {
+    template_arn  = "${aws_inspector_assessment_template.template.arn}"
+    topic_arn     = "${aws_sns_topic.topic.arn}"
+  }
 }
