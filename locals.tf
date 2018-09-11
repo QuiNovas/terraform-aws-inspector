@@ -1,10 +1,11 @@
 locals {
-  assessment_run_started_event = "${contains(var.events, "ASSESSMENT_RUN_STARTED")}"
-  assessment_run_completed_event = "${contains(var.events, "ASSESSMENT_RUN_COMPLETED")}"
-  assesment_run_state_changed_event = "${contains(var.events, "ASSESSMENT_RUN_STATE_CHANGED")}"
-  finding_reported_event = "${contains(var.events, "FINDING_REPORTED")}"
-  inspector_account = "${local.regional_inspector_accounts[data.aws_region.current.name]}"
-  os_rules_package_arns = {
+  assessment_run_started_event_enabled      = "${contains(var.events, "ASSESSMENT_RUN_STARTED")}"
+  assessment_run_completed_event_enabled    = "${contains(var.events, "ASSESSMENT_RUN_COMPLETED")}"
+  assesment_run_state_changed_event_enabled = "${contains(var.events, "ASSESSMENT_RUN_STATE_CHANGED")}"
+  finding_reported_event_enabled            = "${contains(var.events, "FINDING_REPORTED")}"
+  inspector_account                         = "${local.regional_inspector_accounts[data.aws_region.current.name]}"
+  inspector_assessment_runner_object_key    = "quinovas/inspector-assessment-runner/inspector-assessment-runner-0.0.1.zip"
+  os_rules_package_arns                     = {
     amazon_linux                = [
       "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"common_vulnerabilities_and_exposures")}",
       "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"security_best_practices")}"
@@ -77,7 +78,7 @@ locals {
       "${lookup(local.regional_rules_package_arns[data.aws_region.current.name],"runtime_behavior_analysis")}"
     ]
   }
-  regional_inspector_accounts = {
+  regional_inspector_accounts               = {
     ap-northeast-1  = "arn:aws:iam::406045910587:root"
     ap-northeast-2  = "arn:aws:iam::526946625049:root"
     ap-south-1      = "arn:aws:iam::162588757376:root"
@@ -90,7 +91,7 @@ locals {
     us-west-1       = "arn:aws:iam::166987590008:root"
     us-west-2       = "arn:aws:iam::758058086616:root"
   }
-  regional_rules_package_arns = {
+  regional_rules_package_arns               = {
     ap-northeast-1 = {
       common_vulnerabilities_and_exposures                    = "arn:aws:inspector:ap-northeast-1:406045910587:rulespackage/0-gHP9oWNT"
       cis_operating_system_security_configuration_benchmarks  = "arn:aws:inspector:ap-northeast-1:406045910587:rulespackage/0-7WNjqgGu"
@@ -159,8 +160,8 @@ locals {
     }
 
   }
-  rules_package_arns = [
+  rules_package_arns                        = [
     "${local.os_rules_package_arns[var.os_name]}"
   ]
-  sns_topic_enabled = "${length(var.events) > 0 ? 1 : 0}"
+  sns_topic_enabled                         = "${length(var.events) > 0 ? 1 : 0}"
 }

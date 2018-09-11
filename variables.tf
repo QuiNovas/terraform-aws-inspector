@@ -1,6 +1,28 @@
+variable "assessment_run_enabled" {
+  default     = false
+  description = "If true, then the assessment will be run based on the provided interval."
+  type        = "string"
+}
+
+variable "assessment_run_interval" {
+  default     = 7
+  description = "The interval, in days, to run the assessment. Defaults to 7"
+  type        = "string"
+}
+
+variable "dead_letter_arn" {
+  description = "The arn for the SNS topic that handles dead letters for the assessment runner lambda function."
+  type        = "string"
+}
+
 variable "duration" {
   default     = 3600
   description = "The duration of the inspector run."
+  type        = "string"
+}
+
+variable "kms_key_arn" {
+  description = "The arn of the KMS key used to encrypt the environment variables for the assessment runner lambda function."
   type        = "string"
 }
 
