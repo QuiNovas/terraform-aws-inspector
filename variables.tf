@@ -15,6 +15,12 @@ variable "os_name" {
   type        = "string"
 }
 
+variable "events" {
+  default     = []
+  description = "A list of events to fire to an SNS topic. May contain ASSESSMENT_RUN_STARTED, ASSESSMENT_RUN_COMPLETED, ASSESSMENT_RUN_STATE_CHANGED, and/or FINDING_REPORTED."
+  type = "list"
+}
+
 variable "tags" {
   description = "The tags on your EC2 Instance to run Inspector on."
   type        = "map"

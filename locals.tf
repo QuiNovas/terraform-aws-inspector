@@ -1,4 +1,8 @@
 locals {
+  assessment_run_started_event = "${contains(var.events, "ASSESSMENT_RUN_STARTED")}"
+  assessment_run_completed_event = "${contains(var.events, "ASSESSMENT_RUN_COMPLETED")}"
+  assesment_run_state_changed_event = "${contains(var.events, "ASSESSMENT_RUN_STATE_CHANGED")}"
+  finding_reported_event = "${contains(var.events, "FINDING_REPORTED")}"
   inspector_account = "${local.regional_inspector_accounts[data.aws_region.current.name]}"
   os_rules_package_arns = {
     amazon_linux                = [
@@ -158,4 +162,5 @@ locals {
   rules_package_arns = [
     "${local.os_rules_package_arns[var.os_name]}"
   ]
+  sns_topic_enabled = "${length(var.events) > 0 ? 1 : 0}"
 }

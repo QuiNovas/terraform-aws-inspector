@@ -15,5 +15,5 @@ output "resource_group_arn" {
 
 output "topic_arn" {
   description = "The ARN of the SNS that Inspector will report on topic."
-  value = "${aws_sns_topic.topic.arn}"
+  value = "${local.sns_topic_enabled ? join("", aws_sns_topic.topic.*.arn) : ""}"
 }
