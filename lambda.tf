@@ -15,25 +15,23 @@ resource "aws_iam_policy" "runner" {
   policy  = "${data.aws_iam_policy_document.runner.json}"
 }
 
-
 module "runner" {
-  dead_letter_arn       = "${var.dead_letter_arn}"
-  environment_variables = {
+  dead_letter_arn   = "${var.dead_letter_arn}"
+  environment_variables {
     ASSESSMENT_TEMPLATE_ARN = "${aws_inspector_assessment_template.template.arn}"
     RUN_NAME_PREFIX         = "${aws_inspector_assessment_template.template.name} "
   }
-  handler               = "function.handler"
-  kms_key_arn           = "${var.kms_key_arn}"
-  name                  = "${var.name}-inspector-assessment-runner"
-  policy_arns           = [
+  handler           = "function.handler"
+  kms_key_arn       = "${var.kms_key_arn}"
+  l3_object_key     = "${local.inspector_assessment_runner_object_key}"
+  name              = "${var.name}-inspector-assessment-runner"
+  policy_arns       = [
     "${aws_iam_policy.runner.arn}"
   ]
-  policy_arns_count     = 1
-  runtime               = "python2.7"
-  s3_bucket             = "lambdalambdalambda-repo"
-  s3_object_key         = "${local.inspector_assessment_runner_object_key}"
-  source                = "QuiNovas/lambda/aws"
-  version               = "1.0.16"
+  policy_arns_count = 1
+  runtime           = "python2.7"
+  source            = "QuiNovas/lambdalambdalambda/aws"
+  version           = "0.1.0"
 }
 
 resource "aws_cloudwatch_event_rule" "runner" {
