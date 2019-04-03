@@ -23,7 +23,7 @@ resource "null_resource" "install_aws_cli" {
     command = <<EOH
 ${var.install_aws_cli ? "true" : "false"} \
 && ! command -v aws >/dev/null 2>&1 \
-&& [ ! -f awscli-bundle.zip ] &&
+&& [ ! -f awscli-bundle.zip ] \
 && curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip" \
 && unzip awscli-bundle.zip \
 && sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
