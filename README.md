@@ -1,4 +1,4 @@
-# terraform-aws-rds-postgres
+# terraform-aws-inspector
 
 This module configures AWS Inspector for an account.
 
