@@ -34,7 +34,7 @@ resource "null_resource" "subscribe_assessment_run_completed" {
     "null_resource.install_aws_cli"
   ]
   provisioner "local-exec" {
-    command = "${local.aws_cli_path}/awscli/bin/aws inspector subscribe-to-event --event ASSESSMENT_RUN_COMPLETED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn} --region ${data.aws_region.current.name}"
+    command = "${local.aws_cli_path}/aws inspector subscribe-to-event --event ASSESSMENT_RUN_COMPLETED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn} --region ${data.aws_region.current.name}"
   }
   triggers {
     event         = "${local.assessment_run_completed_event_enabled}"
@@ -49,7 +49,7 @@ resource "null_resource" "unsubscribe_assessment_run_completed" {
     "null_resource.install_aws_cli"
   ]
   provisioner "local-exec" {
-    command = "${local.aws_cli_path}/awscli/bin/aws inspector unsubscribe-from-event --event ASSESSMENT_RUN_COMPLETED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn} --region ${data.aws_region.current.name}"
+    command = "${local.aws_cli_path}/aws inspector unsubscribe-from-event --event ASSESSMENT_RUN_COMPLETED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn} --region ${data.aws_region.current.name}"
   }
   triggers {
     event         = "${local.assessment_run_completed_event_enabled}"
@@ -64,7 +64,7 @@ resource "null_resource" "subscribe_assessment_run_started" {
     "null_resource.install_aws_cli"
   ]
   provisioner "local-exec" {
-    command = "${local.aws_cli_path}/awscli/bin/aws inspector subscribe-to-event --event ASSESSMENT_RUN_STARTED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn} --region ${data.aws_region.current.name}"
+    command = "${local.aws_cli_path}/aws inspector subscribe-to-event --event ASSESSMENT_RUN_STARTED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn} --region ${data.aws_region.current.name}"
   }
   triggers {
     event         = "${local.assessment_run_started_event_enabled}"
@@ -79,7 +79,7 @@ resource "null_resource" "unsubscribe_assessment_run_started" {
     "null_resource.install_aws_cli"
   ]
   provisioner "local-exec" {
-    command = "${local.aws_cli_path}/awscli/bin/aws inspector unsubscribe-from-event --event ASSESSMENT_RUN_STARTED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn} --region ${data.aws_region.current.name}"
+    command = "${local.aws_cli_path}/aws inspector unsubscribe-from-event --event ASSESSMENT_RUN_STARTED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn} --region ${data.aws_region.current.name}"
   }
   triggers {
     event         = "${local.assessment_run_started_event_enabled}"
@@ -94,7 +94,7 @@ resource "null_resource" "subscribe_assessment_run_state_changed" {
     "null_resource.install_aws_cli"
   ]
   provisioner "local-exec" {
-    command = "${local.aws_cli_path}/awscli/bin/aws inspector subscribe-to-event --event ASSESSMENT_RUN_STATE_CHANGED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn} --region ${data.aws_region.current.name}"
+    command = "${local.aws_cli_path}/aws inspector subscribe-to-event --event ASSESSMENT_RUN_STATE_CHANGED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn} --region ${data.aws_region.current.name}"
   }
   triggers {
     event         = "${local.assesment_run_state_changed_event_enabled}"
@@ -109,7 +109,7 @@ resource "null_resource" "unsubscribe_assessment_run_state_changed" {
     "null_resource.install_aws_cli"
   ]
   provisioner "local-exec" {
-    command = "${local.aws_cli_path}/awscli/bin/aws inspector unsubscribe-from-event --event ASSESSMENT_RUN_STATE_CHANGED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn} --region ${data.aws_region.current.name}"
+    command = "${local.aws_cli_path}/aws inspector unsubscribe-from-event --event ASSESSMENT_RUN_STATE_CHANGED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn} --region ${data.aws_region.current.name}"
   }
   triggers {
     event         = "${local.assesment_run_state_changed_event_enabled}"
@@ -124,7 +124,7 @@ resource "null_resource" "subscribe_finding_reported" {
     "null_resource.install_aws_cli"
   ]
   provisioner "local-exec" {
-    command = "${local.aws_cli_path}/awscli/bin/aws inspector subscribe-to-event --event FINDING_REPORTED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn} --region ${data.aws_region.current.name}"
+    command = "${local.aws_cli_path}/aws inspector subscribe-to-event --event FINDING_REPORTED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn} --region ${data.aws_region.current.name}"
   }
   triggers {
     event         = "${local.finding_reported_event_enabled}"
@@ -139,7 +139,7 @@ resource "null_resource" "unsubscribe_finding_reported" {
     "null_resource.install_aws_cli"
   ]
   provisioner "local-exec" {
-    command = "${local.aws_cli_path}/awscli/bin/aws inspector unsubscribe-from-event --event FINDING_REPORTED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn} --region ${data.aws_region.current.name}"
+    command = "${local.aws_cli_path}/aws inspector unsubscribe-from-event --event FINDING_REPORTED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn} --region ${data.aws_region.current.name}"
   }
   triggers {
     event         = "${local.finding_reported_event_enabled}"
