@@ -22,7 +22,7 @@ variable "duration" {
 }
 
 variable "install_aws_cli" {
-  default     = true
+  default     = false
   description = "Installs the AWS CLI if it is not already installed"
   type        = "string"
 }
