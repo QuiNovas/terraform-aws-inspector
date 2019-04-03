@@ -13,6 +13,7 @@ resource "null_resource" "install_aws_cli" {
   provisioner "local-exec" {
     command = <<EOH
 ${var.install_aws_cli ? "true" : "false"} \
+&& rm -rf ${local.aws_cli_path} \
 && mkdir -p ${local.aws_cli_path} \
 && curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "${local.aws_cli_path}/awscli-bundle.zip" \
 && unzip ${local.aws_cli_path}/awscli-bundle.zip \
