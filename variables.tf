@@ -21,6 +21,12 @@ variable "duration" {
   type        = "string"
 }
 
+variable "install_aws_cli" {
+  default     = false
+  description = "Installs the AWS CLI if it is not already installed"
+  type        = "string"
+}
+
 variable "kms_key_arn" {
   description = "The arn of the KMS key used to encrypt the environment variables for the assessment runner lambda function."
   type        = "string"

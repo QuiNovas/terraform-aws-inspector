@@ -17,4 +17,3 @@ resource "aws_inspector_assessment_template" "template" {
   ]
   target_arn          = "${aws_inspector_assessment_target.target.arn}"
 }
-
