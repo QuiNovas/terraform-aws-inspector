@@ -31,7 +31,8 @@ resource "aws_sns_topic_policy" "topic" {
 resource "null_resource" "subscribe_assessment_run_completed" {
   count       = "${local.assessment_run_completed_event_enabled ? 1 : 0}"
   depends_on  = [
-    "aws_sns_topic_policy.topic"
+    "aws_sns_topic_policy.topic",
+    "null_resource.install_aws_cli"
   ]
   provisioner "local-exec" {
     command = "aws inspector subscribe-to-event --event ASSESSMENT_RUN_COMPLETED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn} --region ${data.aws_region.current.name}"
@@ -46,7 +47,8 @@ resource "null_resource" "subscribe_assessment_run_completed" {
 resource "null_resource" "unsubscribe_assessment_run_completed" {
   count       = "${local.assessment_run_completed_event_enabled ? 0 : 1}"
   depends_on  = [
-    "aws_sns_topic_policy.topic"
+    "aws_sns_topic_policy.topic",
+    "null_resource.install_aws_cli"
   ]
   provisioner "local-exec" {
     command = "aws inspector unsubscribe-from-event --event ASSESSMENT_RUN_COMPLETED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn} --region ${data.aws_region.current.name}"
@@ -61,7 +63,8 @@ resource "null_resource" "unsubscribe_assessment_run_completed" {
 resource "null_resource" "subscribe_assessment_run_started" {
   count       = "${local.assessment_run_started_event_enabled ? 1 : 0}"
   depends_on  = [
-    "aws_sns_topic_policy.topic"
+    "aws_sns_topic_policy.topic",
+    "null_resource.install_aws_cli"
   ]
   provisioner "local-exec" {
     command = "aws inspector subscribe-to-event --event ASSESSMENT_RUN_STARTED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn} --region ${data.aws_region.current.name}"
@@ -76,7 +79,8 @@ resource "null_resource" "subscribe_assessment_run_started" {
 resource "null_resource" "unsubscribe_assessment_run_started" {
   count       = "${local.assessment_run_started_event_enabled ? 0 : 1}"
   depends_on  = [
-    "aws_sns_topic_policy.topic"
+    "aws_sns_topic_policy.topic",
+    "null_resource.install_aws_cli"
   ]
   provisioner "local-exec" {
     command = "aws inspector unsubscribe-from-event --event ASSESSMENT_RUN_STARTED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn} --region ${data.aws_region.current.name}"
@@ -91,7 +95,8 @@ resource "null_resource" "unsubscribe_assessment_run_started" {
 resource "null_resource" "subscribe_assessment_run_state_changed" {
   count       = "${local.assesment_run_state_changed_event_enabled ? 1 : 0}"
   depends_on  = [
-    "aws_sns_topic_policy.topic"
+    "aws_sns_topic_policy.topic",
+    "null_resource.install_aws_cli"
   ]
   provisioner "local-exec" {
     command = "aws inspector subscribe-to-event --event ASSESSMENT_RUN_STATE_CHANGED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn} --region ${data.aws_region.current.name}"
@@ -106,7 +111,8 @@ resource "null_resource" "subscribe_assessment_run_state_changed" {
 resource "null_resource" "unsubscribe_assessment_run_state_changed" {
   count       = "${local.assesment_run_state_changed_event_enabled ? 0 : 1}"
   depends_on  = [
-    "aws_sns_topic_policy.topic"
+    "aws_sns_topic_policy.topic",
+    "null_resource.install_aws_cli"
   ]
   provisioner "local-exec" {
     command = "aws inspector unsubscribe-from-event --event ASSESSMENT_RUN_STATE_CHANGED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn} --region ${data.aws_region.current.name}"
@@ -121,7 +127,8 @@ resource "null_resource" "unsubscribe_assessment_run_state_changed" {
 resource "null_resource" "subscribe_finding_reported" {
   count       = "${local.finding_reported_event_enabled ? 1 : 0}"
   depends_on  = [
-    "aws_sns_topic_policy.topic"
+    "aws_sns_topic_policy.topic",
+    "null_resource.install_aws_cli"
   ]
   provisioner "local-exec" {
     command = "aws inspector subscribe-to-event --event FINDING_REPORTED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn} --region ${data.aws_region.current.name}"
@@ -136,7 +143,8 @@ resource "null_resource" "subscribe_finding_reported" {
 resource "null_resource" "unsubscribe_finding_reported" {
   count       = "${local.finding_reported_event_enabled ? 0 : 1}"
   depends_on  = [
-    "aws_sns_topic_policy.topic"
+    "aws_sns_topic_policy.topic",
+    "null_resource.install_aws_cli"
   ]
   provisioner "local-exec" {
     command = "aws inspector unsubscribe-from-event --event FINDING_REPORTED --resource-arn ${aws_inspector_assessment_template.template.arn} --topic-arn ${aws_sns_topic.topic.arn} --region ${data.aws_region.current.name}"
