@@ -16,8 +16,8 @@ ${var.install_aws_cli ? "true" : "false"} \
 && rm -rf ${local.aws_cli_path} \
 && mkdir -p ${local.aws_cli_path} \
 && curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "${local.aws_cli_path}/awscli-bundle.zip" \
-&& unzip ${local.aws_cli_path}/awscli-bundle.zip \
-&& sudo ./awscli-bundle/install -i ${local.aws_cli_path}/awscli
+&& unzip ${local.aws_cli_path}/awscli-bundle.zip -d ${local.aws_cli_path} \
+&& sudo ${local.aws_cli_path}/awscli-bundle/install -i ${local.aws_cli_path}/awscli
 EOH
   }
   triggers {
