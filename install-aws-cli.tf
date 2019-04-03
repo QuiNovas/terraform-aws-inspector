@@ -8,7 +8,7 @@ ${var.install_aws_cli ? "true" : "false"} \
 EOH
   }
   triggers {
-    events        = "${local.events_enabled}"
+    events        = "${join(",", var.events)}"
     template_arn  = "${aws_inspector_assessment_template.template.arn}"
     topic_arn     = "${aws_sns_topic.topic.arn}"
   }

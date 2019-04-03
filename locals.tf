@@ -3,7 +3,6 @@ locals {
   assessment_run_completed_event_enabled    = "${contains(var.events, "ASSESSMENT_RUN_COMPLETED")}"
   assesment_run_state_changed_event_enabled = "${contains(var.events, "ASSESSMENT_RUN_STATE_CHANGED")}"
   finding_reported_event_enabled            = "${contains(var.events, "FINDING_REPORTED")}"
-  events_enabled                            = "${local.assessment_run_started_event_enabled},${local.assessment_run_completed_event_enabled},${local.assesment_run_state_changed_event_enabled},${local.finding_reported_event_enabled}"
   inspector_account                         = "${local.regional_inspector_accounts[data.aws_region.current.name]}"
   inspector_assessment_runner_object_key    = "quinovas/inspector-assessment-runner/inspector-assessment-runner-0.0.1.zip"
   os_rules_package_arns {
