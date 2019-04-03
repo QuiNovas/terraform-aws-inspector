@@ -21,7 +21,7 @@ resource "aws_inspector_assessment_template" "template" {
 resource "null_resource" "install_aws_cli" {
   provisioner "local-exec" {
     command = <<EOH
-${var.install_aws_cli} \
+${var.install_aws_cli ? "true" : "false"} \
 && ! command -v aws >/dev/null 2>&1 \
 && curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip" \
 && unzip awscli-bundle.zip \
