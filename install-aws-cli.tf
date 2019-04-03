@@ -4,8 +4,8 @@ resource "random_integer" "sleep_timer" {
     template_arn  = "${aws_inspector_assessment_template.template.arn}"
     topic_arn     = "${aws_sns_topic.topic.arn}"
   }
-  max = 60
-  min = 10
+  max = 90
+  min = 5
 }
 
 resource "null_resource" "install_aws_cli" {
