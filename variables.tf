@@ -23,7 +23,7 @@ variable "duration" {
 
 variable "install_aws_cli" {
   default     = false
-  description = "Installs the AWS CLI if it is not already installed"
+  description = "Installs the AWS CLI module-local. AWS CLI is required to run this module."
   type        = "string"
 }
 
