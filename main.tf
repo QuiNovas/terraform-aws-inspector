@@ -21,9 +21,9 @@ resource "aws_inspector_assessment_template" "template" {
   # If the expression in the following list itself returns a list, remove the
   # brackets to avoid interpretation as a list of lists. If the expression
   # returns a single list item then leave it as-is and remove this TODO comment.
-  rules_package_arns = 
+  rules_package_arns = flatten([
     local.rules_package_arns,
-  
+  ])
   target_arn = aws_inspector_assessment_target.target.arn
 }
 
