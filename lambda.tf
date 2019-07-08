@@ -28,10 +28,9 @@ module "runner" {
   policy_arns = [
     aws_iam_policy.runner.arn,
   ]
-  policy_arns_count = 1
   runtime           = "python2.7"
   source            = "QuiNovas/lambdalambdalambda/aws"
-  version           = "0.2.0"
+  version           = "3.0.1"
 }
 
 resource "aws_cloudwatch_event_rule" "runner" {
