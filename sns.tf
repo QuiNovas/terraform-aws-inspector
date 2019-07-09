@@ -1,5 +1,5 @@
 resource "aws_sns_topic" "topic" {
-  count        = local.sns_topic_enabled
+  count        = local.sns_topic_enabled ? 1 : 0
   display_name = aws_inspector_assessment_template.template.name
   name         = "${var.name}-inspector"
 }
@@ -11,8 +11,7 @@ data "aws_iam_policy_document" "topic" {
     ]
     principals {
       
-      identifiers = 
-        [local.inspector_account],
+      identifiers = [local.inspector_account]
       
       type = "AWS"
     }
@@ -25,7 +24,7 @@ data "aws_iam_policy_document" "topic" {
 
 resource "aws_sns_topic_policy" "topic" {
   arn    = aws_sns_topic.topic[0].arn
-  count  = local.sns_topic_enabled
+  count  = local.sns_topic_enabled ? 1 : 0
   policy = data.aws_iam_policy_document.topic.json
 }
 
