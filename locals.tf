@@ -165,6 +165,6 @@ locals {
   rules_package_arns = [
     local.os_rules_package_arns[var.os_name],
   ]
-  sns_topic_enabled = length(var.events) > 0 ? 1 : 0
+  sns_topic_enabled = length(var.events) > 0 ? true : false
 }
 
