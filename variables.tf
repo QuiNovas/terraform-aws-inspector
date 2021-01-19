@@ -21,11 +21,11 @@ variable "duration" {
   type        = number
 }
 
-variable "install_aws_cli" {
+/*variable "install_aws_cli" {
   default     = false
   description = "Installs the AWS CLI module-local. AWS CLI is required to run this module."
   type        = bool
-}
+}*/
 
 variable "kms_key_arn" {
   description = "The arn of the KMS key used to encrypt the environment variables for the assessment runner lambda function."

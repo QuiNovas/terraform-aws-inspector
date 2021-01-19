@@ -2,8 +2,8 @@ locals {
   assessment_run_started_event_enabled      = contains(var.events, "ASSESSMENT_RUN_STARTED")
   assessment_run_completed_event_enabled    = contains(var.events, "ASSESSMENT_RUN_COMPLETED")
   assesment_run_state_changed_event_enabled = contains(var.events, "ASSESSMENT_RUN_STATE_CHANGED")
-  aws_cli_command                           = var.install_aws_cli ? local.aws_standard_cli_command : local.aws_module_cli_command
-  aws_module_cli_command                    = "${path.module}/awscli/bin/aws"
+  aws_cli_command                           = local.aws_standard_cli_command
+  #aws_module_cli_command                    = "${path.module}/awscli/bin/aws"
   aws_standard_cli_command                  = "aws"
   finding_reported_event_enabled            = contains(var.events, "FINDING_REPORTED")
   inspector_account                         = local.regional_inspector_accounts[data.aws_region.current.name]

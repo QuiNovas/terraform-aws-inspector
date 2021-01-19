@@ -1,4 +1,4 @@
-resource "null_resource" "install_aws_cli" {
+/*resource "null_resource" "install_aws_cli" {
   count = var.install_aws_cli ? 1 : 0
   provisioner "local-exec" {
     command = <<EOH
@@ -13,5 +13,5 @@ EOH
     template_arn = aws_inspector_assessment_template.template.arn
     topic_arn = aws_sns_topic.topic[0].arn
   }
-}
+}*/
 
