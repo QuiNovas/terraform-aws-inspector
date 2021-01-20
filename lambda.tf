@@ -30,7 +30,7 @@ module "runner" {
   ]
   runtime           = "python2.7"
   source            = "QuiNovas/lambdalambdalambda/aws"
-  version           = "3.0.1"
+  version           = "3.0.5"
 }
 
 resource "aws_cloudwatch_event_rule" "runner" {
